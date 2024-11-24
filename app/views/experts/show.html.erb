@@ -1,0 +1,91 @@
+
+
+<div class="bg-white rounded-lg shadow-lg shadow-red-400 border-collapse p-8 mx-auto my-8" style="width: 72rem;">
+  <!-- Geri Dön Butonu -->
+  <div class="flex gap-2 mb-4">
+  <%= link_to "Zurück", experts_path, class: "text-red-500 border border-red-500 px-4 py-2 rounded-full text-sm hover:bg-red-100" %>
+  <%= button_to "Expert*in löschen", @expert, method: :delete, class: "text-red-500 border border-red-500 px-4 py-2 rounded-full text-sm hover:bg-red-100" %>
+</div>
+
+
+
+  <div class="flex justify-between items-start px-10">
+  
+    <div class="flex-1">
+      <h1 class="text-3xl font-bold text-gray-800 mb-2 px-10">
+        <%= @expert.academic_title %> <%= @expert.first_name %> <%= @expert.last_name %>
+      </h1>
+
+      <div class="grid grid-cols-2 gap-y-2 text-sm text-gray-700 mt-4 px-10">
+        <div><strong>Anrede:</strong> <%= @expert.salutation.presence || "Nicht angegeben" %></div>
+        <div><strong>Kommunikationssprache:</strong> <%= @expert.communicationlanguage.presence || "Nicht angegeben" %></div>
+
+        <div><strong>Staatsangehörigkeit:</strong> <%= @expert.natinality.presence || "Nicht angegeben" %></div>
+
+        <div><strong>Telefonnummer:</strong> <%= @expert.telefon_number.presence || "Nicht angegeben" %></div>
+        <div><strong>Reisebereitschaft:</strong> <%= @expert.travel_willingness.presence || "Nicht angegeben" %></div>
+
+        <div><strong>E-Mail:</strong> <%= mail_to @expert.email, @expert.email, class: "text-blue-500 underline" %></div>
+
+        <div><strong>Standort:</strong> <%= @expert.location.presence || "Nicht angegeben" %></div>
+
+        <div><strong>Expertise:</strong> <%= @expert.expertise.presence || "Nicht angegeben" %></div>
+        
+
+       
+
+        
+        
+      </div>
+    </div>
+
+   
+    <div class="flex flex-col items-center">
+      <% if @expert.image.attached? %>
+        <%= image_tag url_for(@expert.image), style: "width: 200px; height: 200px; object-fit: cover;", class: "rounded-full border shadow-md mb-4" %>
+      <% else %>
+        <%= image_tag asset_path('user-profile-4255.png'), style: "width: 200px; height: 200px; object-fit: cover;", class: "rounded-full border shadow-lg" %>
+        <% end %>
+    </div>
+  </div>
+
+
+ <div class="mt-8 text-sm text-gray-700 pl-20">
+  <h2 class="text-lg font-semibold text-gray-800 mb-2">China Bezug/China Erfahrung:</h2>
+  <p class="mb-4 text-left"><%= @expert.china || "Nicht angegeben." %></p>
+
+  <h2 class="text-lg font-semibold text-gray-800 mb-2">Remark:</h2>
+  <p class="mb-4 text-left"><%= @expert.remark || "Nicht angegeben." %></p>
+
+  <h2 class="text-lg font-semibold text-gray-800 mb-2">Cooperation Opportunities</h2>
+  <p class="mb-4 text-left"><%= @expert.cooperation_opportunities|| "Nicht angegeben." %></p>   
+
+
+
+  <h2 class="text-lg font-semibold text-gray-800 mb-2">Kategorien:</h2>
+  <div class="flex gap-2 mt-2 mb-4">
+    <% @expert.categories.each do |category| %>
+      <span class="px-3 py-1 text-sm border border-gray-500 rounded-md">
+        <%= category.name %>
+      </span>
+    <% end %>
+  </div>
+</div>
+
+
+
+ 
+  <div class="text-center">
+  <% if @expert.pdf_file.attached? %>
+    <h1 class = "items-center mb-4 text-gray-600">Lebenslauf/Weitere Anhänge herunterladen</h1>
+    <%= link_to "Download PDF", rails_blob_path(@expert.pdf_file, disposition: "attachment"), class: "text-red-500 border border-red-500 px-10 py-4 rounded-full text-sm hover:bg-red-100" %>
+    <%= link_to "View PDF", rails_blob_path(@expert.pdf_file, disposition: "inline"),target: "_blank", rel: "noopener noreferrer",  class: "text-red-500 border border-red-500 px-10 py-4 rounded-full text-sm hover:bg-red-100" %>
+  <% else %>
+    <p>No PDF uploaded</p>
+  <% end %>
+</div>
+</div>
+
+</div>
+ 
+

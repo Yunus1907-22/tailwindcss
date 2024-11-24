@@ -1,0 +1,15 @@
+<div id="<%= dom_id project %> bg-white">
+  <p class="my-5">
+    <strong class="m-5 block text-3xl font-semibold text-black mb-2"><%= project.title %></strong>
+  </p>
+
+      <p class="bg-white p-5 m-5 rounded flex items-center">
+        <strong class="block text-lg font-semibold text-gray-600 mr-2">AUFTRAGGEBER:</strong>
+        <span class="text-gray-600"><%= project.project_lead %></span>
+      </p>
+
+      <p class="bg-white p-5 m-5 rounded">
+        <strong class="block text-lg font-semibold text-gray-800 mb-2">Description:</strong>
+        <span class="text-gray-600"><%= project.description %></span>
+      </p>
+</div>

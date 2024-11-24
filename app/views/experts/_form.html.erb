@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expert Form</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+</head>
+<body class="bg-cover bg-center bg-fixed" style="background-image: url(<%= asset_path('') %>); background-size: cover; background-position: center; background-attachment: fixed;">
+
+  <%= form_with(model: expert, class: "contents") do |form| %>
+    <% if expert.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+        <h2><%= pluralize(expert.errors.count, "error") %> prohibited this expert from being saved:</h2>
+        <ul>
+          <% expert.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+    <div class="border-2 rounded-lg mt-4 p-4 bg-white/80 backdrop-blur-sm">
+      <div class="bg-gradient-to-r from-red-700 via-red-500 to-red-200 text-white px-4 py-4 rounded">
+        <p class="text-center text-sm font-medium">Personal Informationen</p>
+      </div>
+
+      <!-- Name and Title Fields -->
+      <div class="flex flex-nowrap gap-4">
+        <div class="w-1/3 my-5 h-auto">
+          <%= form.label :first_name, "First Name*", class: "text-gray-700 font-semibold mb-2" %>
+          <%= form.text_field :first_name, placeholder: "Max", class: "p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" %>
+        </div>
+        <div class="w-1/3 my-5 h-auto">
+          <%= form.label :last_name, "Last Name*", class: "text-gray-700 font-semibold mb-2" %>
+          <%= form.text_field :last_name, placeholder: "Mustermann", class: "p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" %>
+        </div>
+        <div class="w-1/3 my-5 h-auto">
+          <%= form.label :academic_title, "Academic Title", class: "text-gray-700 font-semibold mb-2" %>
+          <%= form.select :academic_title, 
+            options_for_select([['Prof', 'Prof'], ['Dozent', 'Dozent'], ['Doktor', 'Doktor']], 
+            selected: expert.academic_title), 
+            { prompt: "Title auswählen" },
+            id: "@academicTitle-dropdown", 
+            class: "p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+          %>
+        </div>
+      </div>
+
+      <!-- Salutation and Location Fields -->
+      <div class="flex flex-nowrap gap-4">
+        <div class="w-1/3 my-5 h-auto">
+          <%= form.label :salutation, "Salutation", class: "text-gray-700 font-semibold mb-2" %>
+          <%= form.select :salutation, 
+            options_for_select([['Herr', 'Herr'], ['Frau', 'Frau']], 
+            selected: expert.salutation), 
+            { prompt: "Anrede auswählen" },
+            id: "@salutation-dropdown", 
+            class: "p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+          %>
+        </div>
+        <div class="w-1/3 my-5">
+          <%= form.label :location, "Location", class: "text-gray-700 font-semibold mb-2" %>
+          <%= form.select :location, 
+            options_for_select([['Berlin', 'Berlin'], ['Zittau', 'Zittau']], 
+            selected: expert.location), 
+            { prompt: "Standort auswählen" }, 
+            id: "location-dropdown", 
+            class: "p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+          %>
+        </div>
+        <div class="w-1/3 my-5">
+          <%= form.label :natinality, "Nationality", class: "text-gray-700 font-semibold mb-2" %>
+          <%= form.select :natinality, 
+            options_for_select([['Afghan', 'Afghan'], ['Zambian', 'Zambian'], ['Zimbabwean', 'Zimbabwean']], 
+            expert.natinality), 
+            { prompt: "Nationalität auswählen" }, 
+            id: "natinality-dropdown", 
+            class: "p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+          %>
+        </div>
+      </div>
+
+      <!-- Email and Phone Fields -->
+      <div class="flex flex-nowrap gap-4">
+        <div class="w-1/3 my-5">
+          <%= form.label :email, "Email*", class: "text-gray-700 font-semibold mb-2" %>
+          <%= form.email_field :email, placeholder: "example@email.com", class: "p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" %>
+        </div>
+        <div class="w-1/3 my-5">
+          <%= form.label :telefon_number, "Phone Number", class: "text-gray-700 font-semibold mb-2" %>
+          <%= form.text_field :telefon_number, placeholder: "Enter phone number", id: "phone", type: "tel", class: "p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" %>
+          <%= form.hidden_field :telefon_number, id: "expert_telefon_number" %>
+        </div>
+        <div class="flex flex-col w-1/3 my-5">
+        
+        
+        </div>
+          
+      </div>
+
+      <!-- Salary and Travel Willingness Fields -->
+      <div class="bg-gradient-to-r from-red-700 via-red-500 to-red-200 text-white px-4 py-4 rounded mt-8">
+        <p class="text-center text-sm font-medium">Unternehmensinformationen</p>
+      </div>
+      
+      <div class="flex justify-between gap-4">
+        <div class="flex flex-col w-1/3 my-5">
+          <%= form.label :salary, "Salary (€/hr)*", class: "text-gray-700 font-semibold mb-2" %>
+          <%= form.text_field :salary, placeholder: "12.41", class: "p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" %>
+        </div>
+        <div class="flex flex-col w-1/3 my-5">
+          <%= form.label :travel_willingness, "Travel Willingness", class: "text-gray-700 font-semibold mb-2" %>
+          <%= form.select :travel_willingness, 
+            options_for_select([['Yes', 'Yes'], ['No', 'No']], 
+            selected: expert.travel_willingness), 
+            { prompt: "Travel Willingness" }, 
+            id: "@salutation-dropdown", 
+            class: "p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+          %>
+        </div>
+        <div class="flex flex-col w-1/3 my-5">
+          <%= form.label :communicationlanguage, "Communication Language", class: "text-gray-700 font-semibold mb-2" %>
+          <%= form.text_field :communicationlanguage, placeholder: "e.g., English", class: "p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" %>
+        </div>
+      </div>
+
+      <!-- Categories, Biography, and Image Upload -->
+      <div class="flex flex-col my-5">
+        <%= form.label :categories, "Categories", class: "text-gray-700 font-semibold mb-2" %>
+        <div class="flex flex-wrap gap-2">
+          <%= form.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+            <div class="category-btn bg-red-500 border-2 text-white px-4 py-2 rounded-lg transition cursor-pointer">
+              <%= b.check_box(class: "hidden") %>
+              <%= b.label(class: "cursor-pointer") %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Profile Image Upload -->
+      <div class="flex flex-col my-5">
+        <%= form.label :image, "Profile Image", class: "text-gray-700 font-semibold mb-2" %>
+        <%= form.file_field :image, class: "file-input mt-1 p-3 border-2 border-gray-300 rounded-lg" %>
+      </div>
+
+      <!-- Submit Button -->
+      
+    </div>
+
+
+   <div class="inline">
+    <%= form.submit class: "mt-4 rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+
+  <% end %>
+
+</body>
+</html>
+
+

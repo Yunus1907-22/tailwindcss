@@ -1,0 +1,92 @@
+<!-- Navbar -->
+<nav class="bg-white shadow-md py-4 px-6 fixed top-0 left-0 w-full z-10">
+  <div class="flex items-center justify-between">
+    <!-- Logo -->
+    <div class="flex items-center space-x-3">
+      <%= link_to root_path, class: "flex items-center" do %>
+        <img src="/assets/Logo-7e95b4a75d056f27af1e2066e8f4c4e75f91086dbaeede92c13d8e33c8b9995b.jpg" alt="Exproware Logo" class="h-10">
+      <% end %>
+    </div>
+
+    <!-- Navigation Links -->
+    <div class="hidden md:flex space-x-6">
+      <%= link_to "Projekte finden", projects_path, class: "text-gray-600 hover:text-gray-800 font-medium" %>
+      <%= link_to "Experten finden", experts_path, class: "text-gray-600 hover:text-gray-800 font-medium" %>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <div class="md:hidden flex items-center">
+      <button id="menu-toggle" class="text-gray-600 focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu (hidden by default) -->
+  <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md mt-2 p-4 space-y-2">
+    <%= link_to "Projekte finden", projects_path, class: "block text-gray-600 hover:text-gray-800 font-medium" %>
+    <%= link_to "Experten finden", experts_path, class: "block text-gray-600 hover:text-gray-800 font-medium" %>
+  </div>
+</nav>
+
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <div class="flex justify-between items-center mb-6">
+    <div class="flex flew-row items-center justify-end">
+      <%= link_to "New Expert", new_expert_path, class: "px-4 py-2 bg-white text-red-600 border border-red-600 rounded-full flex items-center shadow-md mb-10" %>
+      <%= link_to "Back", root_path, class: "px-4 py-2 bg-white text-red-600 border border-red-600 rounded-full flex items-center shadow-md mb-10" %> 
+    </div>
+  </div>
+
+  <div class="w-full">
+    <div class="bg-gray-50 p-4 rounded-lg shadow-md mb-10">
+     
+      <form method="get" action="<%= experts_path %>" class="flex items-center space-x-4 mb-4">
+        
+        <button id="filter-button" type="submit" class="px-4 py-2 bg-white text-red-600 border border-red-600 rounded-full flex items-center shadow-md mb-10">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h16M4 8h16M4 12h8m-8 4h8" />
+          </svg>
+          Filtern
+        </button>
+
+        
+        <input type="text" name="search" placeholder="Search experts" value="<%= params[:search] %>" class="p-4 border border-gray-300 rounded-lg w-full">
+
+        
+        <select name="location" class="p-4 border border-gray-300 rounded-lg">
+          <option value="">Standort auswählen</option>
+          <option value="Berlin" <%= "selected" if params[:location] == "Berlin" %>>Berlin</option>
+          <option value="Hamburg" <%= "selected" if params[:location] == "Hamburg" %>>Hamburg</option>
+          <option value="München" <%= "selected" if params[:location] == "München" %>>München</option>
+        </select>
+
+        
+        <select name="category" class="p-4 border border-gray-300 rounded-lg">
+          <option value="">Kategorie auswählen</option>
+          <option value="Dozentenfortbildung" <%= "selected" if params[:category] == "Dozentenfortbildung" %>>Dozentenfortbildung</option>
+          <option value="fachliche Weiterbildung" <%= "selected" if params[:category] == "fachliche Weiterbildung" %>>fachliche Weiterbildung</option>
+        </select>
+      </form>
+    </div>
+  </div>
+
+  <div class="w-full">
+    <div class="bg-gray-50 p-4 rounded-lg shadow-md mb-10">
+      <div id="experts" class="min-w-full bg-gray-50">
+        <% if @experts.any? %>
+          <% @experts.each do |expert| %>
+            <%= render expert %>
+          <% end %>
+        <% else %>
+          <p>Keine Ergebnisse gefunden</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

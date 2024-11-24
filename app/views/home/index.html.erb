@@ -1,0 +1,72 @@
+<% content_for :title, "Homepage" %>
+
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+<nav class="fixed top-0 left-0 w-full bg-gray-50 border-gray-200 dark:bg-gray-800 dark:border-gray-700 z-10">
+  <div class="max-w-screen-xl mx-auto flex items-center justify-between p-4">
+    <a href="#">
+     <img src="<%= image_path('Logo.jpg') %>" alt="Exproware Logo" class="h-10">
+    </a>
+
+    <div class="relative hidden md:block flex-1 mx-4">
+      <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+        </svg>
+      </div>
+      <input type="text" placeholder="Search..." class="w-full p-2 pl-10 text-sm border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-blue-500 focus:border-blue-500">
+    </div>
+
+    <!-- Menu Buttons -->
+    <div class="flex space-x-4">
+      <%= link_to 'Experten', '/experts', class: "py-3 px-5 text-white bg-[#d40031] rounded-full shadow-lg bg-[#d40031] text-white font-semibold border-2 border-[#d40031] hover:bg-white hover:text-[#d40031] hover:border-[#d40031] transition duration-300" %>
+      <%= link_to 'Projekte', '/projects', class: "py-3 px-5 text-white bg-[#d40031] rounded-full shadow-lg bg-[#d40031] text-white font-semibold border-2 border-[#d40031] hover:bg-white hover:text-[#d40031] hover:border-[#d40031] transition duration-300" %>
+     <!-- <%= link_to 'Kategorien', '/categories', class: "py-3 px-5 text-white bg-[#d40031] rounded-full shadow-lg bg-[#d40031] text-white font-semibold border-2 border-[#d40031] hover:bg-white hover:text-[#d40031] hover:border-[#d40031] transition duration-300" %> -->
+    </div>
+  </div>
+</nav>
+
+
+<div class="relative w-screen h-screen">
+
+  <!-- Text und Button -->
+  <div class="flex flex-col justify-center h-full relative z-10">
+  
+    <!-- Produktname -->
+    <h1 class="text-9xl">
+      <span class="font-bold" style="color: #d40031;">Expro</span><span class="text-black">ware</span>
+    </h1>
+    
+    <!-- Untertitel -->
+    <p class="text-xl mt-4 text-gray-700">Connecting Experts, Empowering Projects</p>
+
+    <!-- Login Button -->
+    <div class="mt-8">
+    <a href="/login" 
+     class="px-6 py-3 rounded-full shadow-lg bg-[#d40031] text-white font-semibold border-2 border-[#d40031] hover:bg-white hover:text-[#d40031] hover:border-[#d40031] transition duration-300">
+    Login</a>
+   </div>
+  </div>
+</div>
+
+<!-- Hintergrundbild -->
+<div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url(<%= image_path('network.png') %>);"></div>
+
+
+
+<style>
+    .image-container {
+        display: flex;
+        justify-content: center;
+        margin: auto;
+        margin-top: 20%;
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+<script>
+    document.querySelector('[data-collapse-toggle]').addEventListener('click', function () {
+        const menu = document.getElementById(this.getAttribute('data-collapse-toggle'));
+        menu.classList.toggle('hidden');
+    });
+</script>
